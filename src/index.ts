@@ -25,7 +25,7 @@ const main = async () => {
     })
   );
 
-  app.listen(process.env.PORT, () => {
+  app.listen(process.env.PORT || 3001 , () => {
     console.log("THE SERVER IS RUNNIG");
   });
 };
