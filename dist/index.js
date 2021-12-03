@@ -27,7 +27,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         schema: index_1.schema,
         graphiql: true,
     }));
-    app.listen(process.env.PORT, () => {
+    app.listen(process.env.PORT || 3001, () => {
         console.log("THE SERVER IS RUNNIG");
     });
 });
