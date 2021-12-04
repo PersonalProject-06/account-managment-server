@@ -8,7 +8,7 @@ export class Users extends BaseEntity {
  @Column()
     name! : string 
  @Column()
-    photo! : string 
+    email! : string 
  @Column()
     password!:string 
 }
