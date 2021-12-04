@@ -11,7 +11,7 @@ export const CREATE_USER ={
         email : {type :GraphQLString},
         password : {type :GraphQLString}
     },
-    resolve :async (parent:any , args:User):Promise<User> =>{
+    resolve :async (parent:any , args:User) =>{
         const {name , email , password} = args
         const passHashed = await bcryptjs.hash(password,10)
        await Users.insert({name, email,password:passHashed })
