@@ -15,6 +15,7 @@ export const CREATE_USER ={
         const {name , email , password} = args
         const passHashed = await bcryptjs.hash(password,10)
        await Users.insert({name, email,password:passHashed })
+    
         return args
      }
 
