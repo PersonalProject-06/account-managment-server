@@ -1,7 +1,7 @@
 
 import { GraphQLSchema , GraphQLObjectType } from "graphql";
 import {GET_ALL_USER_DATA} from "./Queries/User.Query"
-
+import { CREATE_USER } from "./Mutations/User.Mutation";
 const Query = new GraphQLObjectType({
     name : "Query",
     fields : {
@@ -13,7 +13,7 @@ const Query = new GraphQLObjectType({
 const Mutations = new GraphQLObjectType({
     name : "Mutations",
     fields:{
-
+        createUser : CREATE_USER
     }
 })
 
