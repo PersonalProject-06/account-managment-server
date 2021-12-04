@@ -19,6 +19,7 @@ const express_1 = __importDefault(require("express"));
 const index_1 = require("./schema/index");
 const dataBase_1 = require("./dataBase/dataBase");
 dotenv_1.default.config();
+console.log(process.env.URL);
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     yield dataBase_1.Connection;
     const app = (0, express_1.default)();
@@ -27,7 +28,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         schema: index_1.schema,
         graphiql: true,
     }));
-    app.listen(process.env.PORT || 3001, () => {
+    app.listen(process.env.PORT, () => {
         console.log("THE SERVER IS RUNNIG");
     });
 });

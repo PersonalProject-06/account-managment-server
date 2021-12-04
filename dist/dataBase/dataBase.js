@@ -10,10 +10,10 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const { DATABASE, USERNAME, PASSWORD } = process.env;
 exports.Connection = (0, typeorm_1.createConnection)({
-    type: "mysql",
+    type: "postgres",
     database: DATABASE,
     host: "localhost",
-    username: "root",
+    username: "postgres",
     password: PASSWORD,
     logging: true,
     synchronize: false,

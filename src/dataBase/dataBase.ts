@@ -5,13 +5,12 @@ dotenv.config()
 const  {DATABASE, USERNAME, PASSWORD} =process.env
 
 export const Connection = createConnection({
-    type:"mysql",
+    type:"postgres",
     database: DATABASE,
     host:"localhost",
-    username: "root",
+    username: "postgres",
     password:PASSWORD,
     logging:true,
     synchronize:false,
     entities:[Users]
 })
-    
