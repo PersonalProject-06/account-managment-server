@@ -1,7 +1,7 @@
-import { Entity,  Column  , BaseEntity , PrimaryGeneratedColumn} from  'typeorm'
+import { Entity,  Column   , PrimaryGeneratedColumn, BaseEntity} from  'typeorm'
 
 @Entity ({name:"users"})
-export class user extends BaseEntity {
+export class userEntity  extends BaseEntity {
 
  @PrimaryGeneratedColumn()
     id! : number 
@@ -11,5 +11,8 @@ export class user extends BaseEntity {
     email! : string 
  @Column()
     password!:string 
+
+ @Column({type: "timestamp", default:()=> "CURRENT_TIMESTAMP"})
+   createdAts!: Date  
 }
 
