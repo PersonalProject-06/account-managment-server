@@ -14,7 +14,7 @@ export const CREATE_USER ={
     resolve :async (parent:any , args:Iuser) =>{
         const {name , email , password} = args
         const passHashed = await bcryptjs.hash(password,10)
-       await ALLUser.insert({name, email,password:passHashed })
+         ALLUser.create({name, email,password:passHashed })
     
         return args
      }
