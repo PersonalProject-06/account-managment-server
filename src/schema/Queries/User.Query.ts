@@ -6,9 +6,12 @@ import { Iuser, Iid } from "../../Interface/User.interface";
 import { getConnection } from "typeorm";
 export const GET_ALL_USER_DATA = {
   type: new GraphQLList(UserType),
-  args: { id: { type: GraphQLID } },
+  args: { 
+    id: { type: GraphQLID } 
+  },
 
-  resolve: async (args: Iid):Promise<any> => {
+  resolve: async (parent:Iuser , args: Iid):Promise<any> => {
+   
     const user = await getConnection()
       .getRepository(userEntity)
       .createQueryBuilder("user")
