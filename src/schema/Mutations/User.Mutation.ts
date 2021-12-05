@@ -1,6 +1,6 @@
 import {GraphQLString} from "graphql"
 import { UserType } from "../TypeDefs/User.typeDefs"
-import { ALLUser} from "../../Entites/User.entity"
+import { USER} from "../../Entites/User.entity"
 import { Iuser} from "../../Interface/User.interface"
 import bcryptjs from "bcryptjs"
 export const CREATE_USER ={
@@ -14,7 +14,7 @@ export const CREATE_USER ={
     resolve :async (parent:any , args:Iuser) =>{
         const {name , email , password} = args
         const passHashed = await bcryptjs.hash(password,10)
-         ALLUser.create({name, email,password:passHashed })
+         USER.create({name, email,password:passHashed })
     
         return args
      }
