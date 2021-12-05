@@ -1,39 +1,35 @@
-import {GraphQLString} from "graphql"
-import { UserType } from "../TypeDefs/User.typeDefs"
-import { userEntity} from "../../Entites/User.entity"
-import { Iuser} from "../../Interface/User.interface"
-import {getConnection} from "typeorm";
-import bcryptjs from "bcryptjs"
-export const CREATE_USER ={
+import { GraphQLString } from "graphql";
+import { finUserWithEmail, saveUser } from "./helpres";
+import { Iuser, Imessage } from "../../Interface/User.interface";
+import { messageType } from "../TypeDefs/message.typedefs";
 
-    type : UserType,
-    args : {
-        name : {type : GraphQLString},
-        email : {type :GraphQLString},
-        password : {type :GraphQLString}
-    },
-    resolve :async (parent:any , args:Iuser) =>{
-      try{  const {name , email , password} = args
-        const passHashed = await bcryptjs.hash(password,10)
-       
-        await getConnection()
-        .createQueryBuilder()
-        .insert()
-        .into(userEntity)
-        .values({
-
-            name:name ,
-            email:email ,
-            password:passHashed 
-        })
-        .execute()
-                    
-        }
-    
-        catch(err) {
-            console.log(err)
-        }
-     }
-
-
-}
+export const CREATE_USER = {
+  type: messageType,
+  args: {
+    name: { type: GraphQLString },
+    email: { type: GraphQLString },
+    password: { type: GraphQLString },
+  },
+  resolve: async (parent: any, args: Iuser): Promise<Imessage | undefined> => {
+    try {
+      const { email } = args;
+      const bool = await finUserWithEmail(email);
+      if (!bool) {
+        const token = await saveUser(args);
+        return {
+          success: true,
+          message: "user save it ",
+          accessToken: token,
+        };
+      } else {
+        return {
+          success: false,
+          message: "User already exists",
+          accessToken: null,
+        };
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+};

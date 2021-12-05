@@ -5,12 +5,14 @@ export class userEntity  {
 
  @PrimaryGeneratedColumn()
     id! : number 
- @Column()
+ @Column({nullable: false})
     name! : string 
- @Column()
+ @Column({nullable: false})
     email! : string 
- @Column()
+ @Column({nullable: false})
     password!:string 
+ @Column({nullable: false})
+   accessToken!:string    
 
  @Column({type: "timestamp", default:()=> "CURRENT_TIMESTAMP"})
    createdAts!: Date  

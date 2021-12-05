@@ -7,3 +7,10 @@ export interface Iuser {
 export interface Iid{
     id:number;
 }
+
+export interface Imessage {
+    success:boolean;
+    message:string;
+    accessToken: string | null
+
+}

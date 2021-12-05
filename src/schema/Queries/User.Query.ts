@@ -17,6 +17,6 @@ export const GET_ALL_USER_DATA = {
       .createQueryBuilder("user")
       .where("user.id = :id", { id: args.id })
       .getOne();
-      return user
+      return [user]
   },
 };

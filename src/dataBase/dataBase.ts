@@ -10,7 +10,8 @@ export const Connection = createConnection({
     ssl: {
         rejectUnauthorized: false
       },
-    synchronize:true,
+  
+   synchronize:true,
    
     entities:[userEntity]
 })
