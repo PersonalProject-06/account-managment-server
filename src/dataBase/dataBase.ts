@@ -1,5 +1,5 @@
 import {createConnection} from "typeorm"
-import { USER} from "../Entites/User.entity"
+import { user} from "../Entites/User.entity"
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -11,5 +11,5 @@ export const Connection = createConnection({
         rejectUnauthorized: false
       },
     synchronize:false,
-    entities:[USER]
+    entities:[user]
 })
