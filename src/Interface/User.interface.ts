@@ -3,3 +3,7 @@ export interface Iuser {
     email : string;
     password: string;
 }
+
+export interface Iid{
+    id:number;
+}
