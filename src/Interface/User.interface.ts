@@ -5,7 +5,7 @@ export interface Iuser {
 }
 
 export interface Iid{
-    id:number;
+    name:string;
 }
 
 export interface Imessage {
