@@ -5,12 +5,11 @@ dotenv.config();
 
 export const Connection = createConnection({
   type: "postgres",
- // url: process.env.DATABASE_URL,
-  //ssl: {
-  //  rejectUnauthorized: false,
- // },
-  username: "postgres",
-  password: "Hovcu3378#@",
+  url: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+
   synchronize: true,
 
   entities: [userEntity],
