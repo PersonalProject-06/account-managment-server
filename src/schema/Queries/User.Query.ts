@@ -1,10 +1,22 @@
-import { GraphQLList } from "graphql";
+import { GraphQLID, GraphQLList } from "graphql";
 import { UserType } from "../TypeDefs/User.typeDefs";
-import { Users } from "../../Entites/User.entity";
-import { User } from "../../Interface/User.interface";
+import { userEntity } from "../../Entites/User.entity";
+import { Iuser, Iid } from "../../Interface/User.interface";
+
+import { getConnection } from "typeorm";
 export const GET_ALL_USER_DATA = {
   type: new GraphQLList(UserType),
-  resolve: async (): Promise<User[]> => {
-    return await Users.find();
+  args: { 
+    id: { type: GraphQLID } 
+  },
+
+  resolve: async (parent:Iuser , args: Iid):Promise<any> => {
+   
+    const user = await getConnection()
+      .getRepository(userEntity)
+      .createQueryBuilder("user")
+      .where("user.id = :id", { id: args.id })
+      .getOne();
+      return [user]
   },
 };

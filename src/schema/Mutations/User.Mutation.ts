@@ -1,20 +1,35 @@
-import {GraphQLString} from "graphql"
-import { UserType } from "../TypeDefs/User.typeDefs"
-import { Users} from "../../Entites/User.entity"
- import { User} from "../../Interface/User.interface"
-export const CREATE_USER ={
+import { GraphQLString } from "graphql";
+import { finUserWithEmail, saveUser } from "./helpres";
+import { Iuser, Imessage } from "../../Interface/User.interface";
+import { messageType } from "../TypeDefs/message.typedefs";
 
-    type : UserType,
-    args : {
-        name : {type : GraphQLString},
-        email : {type :GraphQLString},
-        password : {type :GraphQLString}
-    },
-    resolve :async (parent:any , args:User):Promise<User> =>{
-        console.log(args ,'daz')
-        Users.insert(args)
-        return args
-     }
-
-
-}
+export const CREATE_USER = {
+  type: messageType,
+  args: {
+    name: { type: GraphQLString },
+    email: { type: GraphQLString },
+    password: { type: GraphQLString },
+  },
+  resolve: async (parent: any, args: Iuser): Promise<Imessage | undefined> => {
+    try {
+      const { email } = args;
+      const bool = await finUserWithEmail(email);
+      if (!bool) {
+        const token = await saveUser(args);
+        return {
+          success: true,
+          message: "user save it ",
+          accessToken: token,
+        };
+      } else {
+        return {
+          success: false,
+          message: "User already exists",
+          accessToken: null,
+        };
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+};
