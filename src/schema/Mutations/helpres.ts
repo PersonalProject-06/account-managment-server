@@ -1,5 +1,5 @@
-import { getConnection } from "typeorm";
-import { Iuser } from "../../Interface/User.interface";
+import { createQueryBuilder, getConnection } from "typeorm";
+import { Iuser ,IAuth} from "../../Interface/User.interface";
 import { userEntity } from "../../Entites/User.entity";
 import bcryptjs from "bcryptjs";
 var jwt = require("jsonwebtoken");
@@ -13,6 +13,7 @@ export const finUserWithEmail = async (
       .from(userEntity, "user")
       .where("user.email = :email", { email })
       .getOne();
+
     if (checkExistance) {
       return true;
     } else {
@@ -44,3 +45,42 @@ export const saveUser = async (user: Iuser) => {
     throw new Error();
   }
 };
+
+
+
+export const CheckUser = async (user: any): Promise<boolean | undefined> => {
+
+  const getPassAndEmailFromDataBase =
+  await getConnection() 
+  .getRepository(userEntity)
+  .createQueryBuilder("user")
+  .select(["user.id","user.name","user.email","user.password"])
+  .where("user.email = :email" , {email:user.email})
+  .getOne()
+      if(!getPassAndEmailFromDataBase){
+        return false 
+      }
+      else if(getPassAndEmailFromDataBase){
+          const bool = await bcryptjs.compare(user.password,getPassAndEmailFromDataBase.password)
+          if(bool){
+            return true 
+          }else{
+            return false 
+          }
+          }
+          return false 
+  
+  }
+
+  export const getUserData = async(email:string):Promise<any>=>{
+
+      const data = await getConnection()
+      .createQueryBuilder()
+      .select("user")
+      .from(userEntity, "user")
+      .where("user.email = :email", { email })
+      .getOne();
+      return data 
+
+
+  }

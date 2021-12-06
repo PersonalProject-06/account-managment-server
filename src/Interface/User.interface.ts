@@ -14,3 +14,8 @@ export interface Imessage {
     accessToken: string | null
 
 }
+
+export interface IAuth{
+    email:string;
+    password:string
+}
