@@ -11,7 +11,7 @@ import { schema } from "./schema/index";
 
 import { Connection } from "./dataBase/dataBase";
 dotenv.config();
-console.log(process.env.URL)
+
 const main = async () => {
   await Connection;
   const app = express();

@@ -7,7 +7,7 @@ exports.UserType = new graphql_1.GraphQLObjectType({
     fields: () => ({
         id: { type: graphql_1.GraphQLID },
         name: { type: graphql_1.GraphQLString },
-        photo: { type: graphql_1.GraphQLString },
+        email: { type: graphql_1.GraphQLString },
         password: { type: graphql_1.GraphQLString }
     })
 });

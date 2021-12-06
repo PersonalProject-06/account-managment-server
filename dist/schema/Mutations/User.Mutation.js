@@ -9,18 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SAVE_USER = void 0;
+exports.CREATE_USER = void 0;
 const graphql_1 = require("graphql");
 const User_typeDefs_1 = require("../TypeDefs/User.typeDefs");
 const User_entity_1 = require("../../Entites/User.entity");
-exports.SAVE_USER = {
+exports.CREATE_USER = {
     type: User_typeDefs_1.UserType,
     args: {
         name: { type: graphql_1.GraphQLString },
-        photo: { type: graphql_1.GraphQLString },
+        email: { type: graphql_1.GraphQLString },
         password: { type: graphql_1.GraphQLString }
     },
     resolve: (parent, args) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(args, 'daz');
         User_entity_1.Users.insert(args);
+        return args;
     })
 };
