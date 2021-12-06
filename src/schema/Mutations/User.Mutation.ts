@@ -1,7 +1,8 @@
 import { GraphQLString } from "graphql";
-import { finUserWithEmail, saveUser } from "./helpres";
-import { Iuser, Imessage } from "../../Interface/User.interface";
+import { finUserWithEmail, saveUser, CheckUser, getUserData } from "./helpres";
+import { Iuser, Imessage, IAuth } from "../../Interface/User.interface";
 import { messageType } from "../TypeDefs/message.typedefs";
+import session from "express-session";
 
 export const CREATE_USER = {
   type: messageType,
@@ -30,6 +31,37 @@ export const CREATE_USER = {
       }
     } catch (err) {
       console.log(err);
+    }
+  },
+};
+
+export const LOGIN = {
+  type: messageType,
+  args: {
+    email: { type: GraphQLString },
+    password: { type: GraphQLString },
+  },
+  resolve: async (
+    parent: Iuser,
+    args: IAuth,
+    context: any
+  ): Promise<Imessage> => {
+    const response = await CheckUser(args);
+
+    if (response) {
+      const data = getUserData(args.email);
+      context.req.session.User = data;
+      return {
+        success: true,
+        message: "is authenticated",
+        accessToken: null,
+      };
+    } else {
+      return {
+        success: false,
+        message: "is not authenticated",
+        accessToken: null,
+      };
     }
   },
 };
